@@ -1,5 +1,18 @@
+// Copiamo la griglia fatta ieri nella nuova repo e aggiungiamo la logica del gioco (attenzione: non bisogna copiare tutta la cartella dell'esercizio ma solo l'index.html, e le cartelle js/ css/ con i relativi script e fogli di stile, per evitare problemi con l'inizializzazione di git).
+// ****
 // Generare una griglia di gioco quadrata in cui ogni cella contiene un numero compreso tra 1 e 100.
-// Quando l'utente clicca su ogni cella, la cella cliccata si colora di azzurro.
+// Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe.
+// I numeri nella lista delle bombe non possono essere duplicati.
+// In seguito l'utente clicca su una cella: se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba - la cella si colora di rosso e la partita termina, altrimenti la cella cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle.
+// La partita termina quando il giocatore clicca su una bomba o raggiunge il numero massimo possibile di numeri consentiti.
+// Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una bomba.
+// **BONUS:**
+// 1 - L'utente indica un livello di difficoltà in base al quale viene generata una griglia di gioco quadrata, in cui ogni cella contiene un numero tra quelli compresi in un range:
+// con difficoltà 1 => tra 1 e 100
+// con difficoltà 2 => tra 1 e 81
+// con difficoltà 3 => tra 1 e 49
+// **2- quando si clicca su una bomba e finisce la partita, evitare che si possa cliccare su altre celle
+// ****3- quando si clicca su una bomba e finisce la partita, il software scopre tutte le bombe nascoste
 
 
 // 1. Tramite il play button attivo lo script
@@ -19,6 +32,18 @@ document.getElementById("play-btn").addEventListener("click", function() {
         gridSize = 49;
     }
 
+    // Creo un array di numeri casuali non ripetuti in cui verrano posizionate le "bombe"
+    const bombsNumber = 16;
+    const bombsArray = generateUniqueRndNumbers(bombsNumber, gridSize);
+    console.log(bombsArray);
+
+    // Ogni volta che clicco su una cella che non risulta essere una bombsArray, viene inserita in un array di celle sicure
+    const safeCells = [];
+    console.log(safeCells);
+
+    const winNumbers = gridSize - bombsNumber;
+    console.log(winNumbers);
+
     // Creo la griglia
     const gridArray = generateGridNumbers(gridSize);
     console.log(gridArray);
@@ -35,17 +60,62 @@ document.getElementById("play-btn").addEventListener("click", function() {
         const domElement = generateGridItem(gridNumber)
     
         // aggiungo all'elmento appena creato la gestione del click
-        domElement.addEventListener("click", function() {
-            this.classList.add("active");
-        });
+        domElement.addEventListener("click", handleCellClick);
     
         // appendo questo elemnto al contenitore
         gridContainer.append(domElement);
     
     }
+
+    function handleCellClick() {
+        // Prelevo il numero all'interno dello span dell'elemento cliccato
+        const clickedNumber = parseInt(this.querySelector('span').textContent);
+        
+        // Se il numero è presente nel bombsArray, viene colorato di rosso e il gioco finisce
+        if ( bombsArray.includes(clickedNumber) ) {
+            this.classList.add("bomb");
+    
+            endGame(safeCells.length, "lose")
+        }
+        // Se il numero non è una bombsArray, il gioco prosegue e viene inserito nell'array delle safeCells
+        else {
+            this.classList.add("active");
+
+            safeCells.push(clickedNumber);
+            console.log(safeCells);
+
+            if (safeCells.length === winNumbers) {
+                endGame(safeCells, "win")
+            } 
+
+            // Rendo la cella non cliccabile
+            this.style.pointerEvents = "none";
+        }
+    }
+
+    function endGame(safeNumbersQuantity, winLose) {
+        // Seleziona l'elemento HTML con id "result"
+        const resultTitle = document.getElementById("result");
+        let resultMessage;
+
+        // In base all'esito del gioco, scrive due diversi tipi di risultati
+        if (winLose === "lose") {
+            resultMessage = `Hai perso! Hai indovinato ${safeNumbersQuantity} numeri` ;
+        } 
+        else {
+            resultMessage =`HAI VINTO, COMPLIMENTI!`;
+        }
+        resultTitle.innerHTML = resultMessage;
+        resultTitle.classList.remove("d-none");
+    }
+
+    // Nel caso in cui resettiamo il GeolocationCoordinates, anche la scritta sparisce
+    const resultTitle = document.getElementById("result");
+    resultTitle.classList.add("d-none");
 });
 
 
+// GRID FUNCTION
 
 /**
  * Description
@@ -56,13 +126,16 @@ function generateGridNumbers(gridSize) {
     // creare l'array
     const gridArray = [];
 
-    // Creao i numeri random tramite while 
+    // Creo i numeri random tramite while 
     for (let i = 1; i <= gridSize; i++) {
         gridArray.push(i);
     }
 
     return gridArray;
 }
+
+// BOMB FUNCTION
+
 
 // DOM FUNCTIONS
 /**
@@ -91,6 +164,31 @@ function generateGridNumbers(gridSize) {
 
     // ritorno elemnto
     return newElement;
+
+}
+
+// FUNCTION RND NUMBERS
+
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+/**
+ * Description: La funzione che genera numeri random non ripetuti
+ * @param {any} numberQuantity -> quantità di numeri da generare
+ * @param {any} maxLimit -> il limite massimo di range di numeri
+ * @returns {any} -> array di numeri random non ripetuti
+ */
+ function generateUniqueRndNumbers(numberQuantity, maxLimit) {
+    const numbersArray = [];
+    while (numbersArray.length < 16) {
+        const randomNumber = getRndInteger(1, maxLimit);
+        if ( !numbersArray.includes(randomNumber) ) {
+            numbersArray.push(randomNumber);
+        }
+    }
+
+    return numbersArray;
 }
 
 

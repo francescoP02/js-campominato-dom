@@ -36,6 +36,7 @@ main {
 }
 
 .grid-container {
+    display: block;
     height: 500px;
     width: 500px;
     display: flex;
@@ -75,16 +76,9 @@ main {
     align-items: center;
 }
 
-.grid-item span {
-    display: none;
-}
-
-.grid-item-2 span {
-    display: none;
-}
-
-.grid-item-3 span {
-    display: none;
+.ms-result {
+    font-weight: 600;
+    font-size: 1.5rem;
 }
 
 /* GRID ITEM ACTIVE */
@@ -101,16 +95,28 @@ main {
     background-color: #6495ed;
 }
 
-.grid-item.active span {
+.grid-item.active span , .grid-item.bomb span {
     display: block;
 }
 
-.grid-item-2.active span {
+.grid-item-2.active span ,  .grid-item-2.bomb span {
     display: block;
 }
 
-.grid-item-3.active span {
+.grid-item-3.active span ,  .grid-item-3.bomb span {
     display: block;
+}
+
+.grid-item.bomb {
+    background-color: red;
+}
+
+.grid-item-2.bomb {
+    background-color: red;
+}
+
+.grid-item-3.bomb {
+    background-color: red;
 }
 
 /* FOOTER */
