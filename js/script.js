@@ -140,6 +140,7 @@ document.getElementById("play-btn").addEventListener("click", function() {
 
     // Nel caso in cui resettiamo il GeolocationCoordinates, anche la scritta sparisce
     const resultTitle = document.getElementById("result");
+    console.log(resultTitle);
     resultTitle.classList.add("d-none");
 });
 
