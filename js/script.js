@@ -76,6 +76,8 @@ document.getElementById("play-btn").addEventListener("click", function() {
             this.classList.add("bomb");
     
             endGame(safeCells.length, "lose")
+
+
         }
         // Se il numero non è una bombsArray, il gioco prosegue e viene inserito nell'array delle safeCells
         else {
@@ -104,6 +106,16 @@ document.getElementById("play-btn").addEventListener("click", function() {
                 const thisItem = gridItems[i];
                 thisItem.style.pointerEvents = "none";
             }
+
+            for (let i = 0; i < gridSize; i++) {
+                const gridItems = document.getElementsByClassName("grid-item");
+                let thisElement = gridArray[i];
+                if ( bombsArray.includes(thisElement) ) {
+                    const thisItem = gridItems[i];
+                    thisItem.classList.add("active");
+                    thisItem.classList.add("bomb");
+                }
+            }
         }
          else if (userDifficulty == "medium") {
             const gridItems = document.getElementsByClassName ("grid-item-2");
@@ -111,6 +123,16 @@ document.getElementById("play-btn").addEventListener("click", function() {
             for (let i = 0; i < gridItems.length; i++) {
                 const thisItem = gridItems[i];
                 thisItem.style.pointerEvents = "none";
+            }
+
+            for (let i = 0; i < gridSize; i++) {
+                const gridItems = document.getElementsByClassName("grid-item-2");
+                let thisElement = gridArray[i];
+                if ( bombsArray.includes(thisElement) ) {
+                    const thisItem = gridItems[i];
+                    thisItem.classList.add("active");
+                    thisItem.classList.add("bomb");
+                }
             }
         }
          else {
@@ -120,8 +142,17 @@ document.getElementById("play-btn").addEventListener("click", function() {
                 const thisItem = gridItems[i];
                 thisItem.style.pointerEvents = "none";
             }
-        }
 
+            for (let i = 0; i < gridSize; i++) {
+                const gridItems = document.getElementsByClassName("grid-item-3");
+                let thisElement = gridArray[i];
+                if ( bombsArray.includes(thisElement) ) {
+                    const thisItem = gridItems[i];
+                    thisItem.classList.add("active");
+                    thisItem.classList.add("bomb");
+                }
+            }
+        }
 
         // Seleziona l'elemento HTML con id "result"
         const resultTitle = document.getElementById("result");
