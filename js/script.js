@@ -94,6 +94,14 @@ document.getElementById("play-btn").addEventListener("click", function() {
     }
 
     function endGame(safeNumbersQuantity, winLose) {
+
+        const gridItems = document.getElementsByClassName("grid-item");
+
+        for (let i = 0; i < gridItems.length; i++) {
+            const thisItem = gridItems[i];
+            thisItem.style.pointerEvents = "none";
+        }
+
         // Seleziona l'elemento HTML con id "result"
         const resultTitle = document.getElementById("result");
         let resultMessage;
