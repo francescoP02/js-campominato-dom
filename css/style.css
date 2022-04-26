@@ -1,0 +1,120 @@
+/* RESET */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* COMMON */
+body {
+    height: 100vh;
+    width: 100%;
+}
+
+.row {
+    height: 100%;
+}
+
+/* HEADER */
+
+header {
+    height: 80px;
+}
+
+.ms-fs {
+    font-size: 1.5rem;
+}
+
+/* MAIN */
+
+main {
+    background-color: #7fffd4;
+    height: calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-container {
+    height: 500px;
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.grid-item {
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+    border: 1px solid black;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-item-2 {
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+    border: 1px solid black;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-item-3 {
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+    border: 1px solid black;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-item span {
+    display: none;
+}
+
+.grid-item-2 span {
+    display: none;
+}
+
+.grid-item-3 span {
+    display: none;
+}
+
+/* GRID ITEM ACTIVE */
+
+.grid-item.active {
+    background-color: #6495ed;
+}
+
+.grid-item-2.active {
+    background-color: #6495ed;
+}
+
+.grid-item-3.active {
+    background-color: #6495ed;
+}
+
+.grid-item.active span {
+    display: block;
+}
+
+.grid-item-2.active span {
+    display: block;
+}
+
+.grid-item-3.active span {
+    display: block;
+}
+
+/* FOOTER */
+
+footer {
+    height: 40px;
+}
