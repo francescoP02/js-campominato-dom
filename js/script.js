@@ -93,14 +93,35 @@ document.getElementById("play-btn").addEventListener("click", function() {
         }
     }
 
+    // FUNCTION ENDGAME
     function endGame(safeNumbersQuantity, winLose) {
 
-        const gridItems = document.getElementsByClassName("grid-item");
+        const userDifficulty = document.getElementById("user-difficulty").value;
+        if (userDifficulty == "easy") {
+            const gridItems = document.getElementsByClassName("grid-item");
 
-        for (let i = 0; i < gridItems.length; i++) {
-            const thisItem = gridItems[i];
-            thisItem.style.pointerEvents = "none";
+            for (let i = 0; i < gridItems.length; i++) {
+                const thisItem = gridItems[i];
+                thisItem.style.pointerEvents = "none";
+            }
         }
+         else if (userDifficulty == "medium") {
+            const gridItems = document.getElementsByClassName ("grid-item-2");
+
+            for (let i = 0; i < gridItems.length; i++) {
+                const thisItem = gridItems[i];
+                thisItem.style.pointerEvents = "none";
+            }
+        }
+         else {
+            const gridItems = document.getElementsByClassName("grid-item-3");
+
+            for (let i = 0; i < gridItems.length; i++) {
+                const thisItem = gridItems[i];
+                thisItem.style.pointerEvents = "none";
+            }
+        }
+
 
         // Seleziona l'elemento HTML con id "result"
         const resultTitle = document.getElementById("result");
